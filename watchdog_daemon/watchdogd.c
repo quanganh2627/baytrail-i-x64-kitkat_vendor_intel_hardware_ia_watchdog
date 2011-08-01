@@ -429,7 +429,7 @@ void Timeout_Alert(int check_in_progress, client_rec_t *clients, int MaxClients)
 			}
 			err_msg[ERRMSG_SIZE-1] = 0;
 			__android_log_print(ANDROID_LOG_INFO, LOG_TAG,
-			err_msg);
+			"%s", err_msg);
 			/* Client(s) not responding, exit to force reset */
 			/* When Watchdog driver is able to force a reset */
 			/* change to just log and wait for that reset   */
