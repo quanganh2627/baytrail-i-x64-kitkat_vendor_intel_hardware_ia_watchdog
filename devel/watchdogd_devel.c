@@ -66,6 +66,18 @@ int watchdogd_register_client(char *id)
 	char			buf[80];
 	ssize_t			rsize;
 
+	if (id == NULL) {
+		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+			"Invalid NULL string for client ID\n");
+		return -EINVAL;
+	}
+
+	if (strlen(id) > CLIENT_ID_SIZE) {
+		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+			"Client ID string too big\n");
+		return -EINVAL;
+	}
+
 	/* Create our client socket */
 	if ((client_fd = socket(AF_LOCAL, SOCK_STREAM, 0)) < 0) {
 		/* Error creating socket, escalate error to caller */
