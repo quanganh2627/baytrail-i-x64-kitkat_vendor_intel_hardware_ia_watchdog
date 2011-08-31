@@ -35,6 +35,7 @@
 char	client_sid[CLIENT_ID_SIZE] = "";
 int	client_fd = 0;
 char	client_uid = 0;
+int	registered = 0;
 
 /* Function:   watchdogd_register_client
  *
@@ -124,6 +125,7 @@ int watchdogd_register_client(char *id)
 		"my register: id %s uid is %d\n, fd is %d",
 		client_sid, client_uid, client_fd);
 
+	registered = 1;
 	return client_fd;
 };
 
@@ -147,6 +149,12 @@ int watchdogd_read_health_request()
 	struct timeval	tout;
 	int		n;
 	char		buf[80];
+
+	if (!registered) {
+		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+			"Sorry, not registered, goodbye!!\n");
+		return -1;
+	}
 
 	FD_ZERO(&rx_set);
 	FD_SET(client_fd, &rx_set);
@@ -196,6 +204,12 @@ int watchdogd_health_response()
 {
 	client_resp_t	h_resp;
 	int	wsize;
+
+	if (!registered) {
+		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
+			"Sorry, not registered, goodbye!!\n");
+		return -1;
+	}
 
 	/* Create Health Response Message */
 	h_resp.c_uid = client_uid;
