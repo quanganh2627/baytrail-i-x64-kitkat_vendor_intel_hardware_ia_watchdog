@@ -600,15 +600,18 @@ int main (int argc, char *argv[])
 	Init_Signal_Handlers();
 
 	/* This is the socket that new clients use to register */
-	sfd = Create_Socket();
+
+	/* Clients are out of POR for Android 1 */
+	/* sfd = Create_Socket(); */
 
 	/* Create the listen queue for the socket */
-	lres = listen(sfd,WDOG_CLIENT_BACKLOG);
-	if (lres < 0) {
-		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
-		"Socket listen error %s\n", strerror(errno));
-		exit (-1);
-	}
+	/* lres = listen(sfd,WDOG_CLIENT_BACKLOG); */
+	/* if (lres < 0) { */
+	/*	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, */
+	/*	"Socket listen error %s\n", strerror(errno)); */
+	/*	exit (-1); */
+	/* } */
+	sfd = 0;
 
 	if (wfd > sfd)
 		max_fd = wfd;
@@ -635,7 +638,8 @@ int main (int argc, char *argv[])
 
 		/* Create file descriptor set for select() */
 		FD_ZERO(&rx_set);
-		FD_SET(sfd, &rx_set);
+		/* Clients out of POR for Android 1 */
+		/* FD_SET(sfd, &rx_set); */
 		FD_SET(wfd, &rx_set);
 
 		for (z=0; z<MaxClients; z++) {
@@ -685,13 +689,14 @@ int main (int argc, char *argv[])
 			keep_alive_count++;
 		}
 
-		if (FD_ISSET(sfd,&rx_set)) {
+		/* Clients out of POR for Andoid 1 */
+		/* if (FD_ISSET(sfd,&rx_set)) { */
 
-			/* Setup New Client Connection */
-			if (MaxClients > NumClients) {
-				Accept_New_Client(sfd,clients,MaxClients);
-			}
-		}
+		 	/* Setup New Client Connection */
+		/* 	if (MaxClients > NumClients) { */
+		/* 		Accept_New_Client(sfd,clients,MaxClients); */
+		/* 	} */
+		/* } */
 
 		/* Check for client responses to ENQUIRY */
 
