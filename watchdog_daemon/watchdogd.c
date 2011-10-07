@@ -24,7 +24,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
+
+#ifdef __ANDROID__
 #include <android/log.h>
+#endif /* __ANDROID__ */
+
 #include <sys/un.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>

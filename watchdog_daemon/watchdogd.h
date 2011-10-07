@@ -70,4 +70,14 @@ typedef struct {
  */
 #define DEFAULT_SOFT_TO_HARD_MARGIN 15
 
+/* This is only for compiling in the kboot space */
+#ifndef __ANDROID__
+#define ANDROID_LOG_ERROR "Error: "
+#define ANDROID_LOG_INFO "Information: "
+#define __android_log_print(error, tag, args...) \
+	printf(tag); \
+	printf(":  "); \
+	printf(error); \
+	printf(args);
+#endif /* __ANDROID__ */
 #endif /* _WATCHDOGD_H */
