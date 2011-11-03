@@ -549,7 +549,6 @@ int main (int argc, char *argv[])
 	int			keep_alive_count = 0;
 
 	fd_set			rx_set;
-	struct timeval		tout;
 	client_rec_t		*clients = NULL;
 
 	/* State variables */
@@ -634,9 +633,6 @@ int main (int argc, char *argv[])
 	SelectTimeout = ResetTimeout -
 		DEFAULT_SOFT_TO_HARD_MARGIN;
 
-	tout.tv_sec = SelectTimeout;
-	tout.tv_usec = 0;
-
 	/* Start server loop */
 	for (;;) {
 
@@ -653,24 +649,13 @@ int main (int argc, char *argv[])
 		}
 
 		/* Use select to wait for something */
-		n = select(max_fd+1,&rx_set,NULL,NULL,&tout);
+		n = select(max_fd+1,&rx_set,NULL,NULL,NULL);
 		if (n == -1) {
 			__android_log_print(ANDROID_LOG_ERROR, LOG_TAG,
 			"select error\n");
 			exit(1);
 		} else if (!n) {
-			/* select timed out, do check and go back to select */
-			Timeout_Alert(check_in_progress,
-					clients,
-					MaxClients);
-			if (check_in_progress) {
-				tout.tv_sec = SelectTimeout;
-				tout.tv_usec = 0;
-			} else {
-				tout.tv_sec = DEFAULT_SOFT_TO_HARD_MARGIN - 1;
-				tout.tv_usec = 0;
 			continue;
-			}
 		}
 
 
@@ -684,9 +669,6 @@ int main (int argc, char *argv[])
 			Read_Watchdog_Device(wfd);
 
 			Start_Client_Check(clients, MaxClients);
-			/* Set warning timeout for client check */
-			tout.tv_sec = DEFAULT_SOFT_TO_HARD_MARGIN - 1;
-			tout.tv_usec = 0;
 
 			check_in_progress = true;
 			/* Increment Keep Alive Request Count */
@@ -716,9 +698,6 @@ int main (int argc, char *argv[])
 			if (All_Clients_Responded(clients, MaxClients)) {
 				Refresh_Watchdog(wfd);
 				check_in_progress = false;
-				/* Reset the select timeout warning */
-				tout.tv_sec = SelectTimeout;
-				tout.tv_usec = 0;
 			}
 
 		}
