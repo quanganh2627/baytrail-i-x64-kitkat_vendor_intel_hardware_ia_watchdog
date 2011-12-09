@@ -17,12 +17,13 @@ ifeq ($(BUILD_WITH_WATCHDOG_DAEMON_SUPPORT),true)
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_FORCE_STATIC_EXECUTABLE := true
 
 LOCAL_C_INCLUDES += hardware/intel/include
 LOCAL_CFLAGS += -g -Wall
 LOCAL_SRC_FILES:= watchdogd.c
 LOCAL_MODULE := watchdogd
-LOCAL_SHARED_LIBRARIES := libcutils libc
+LOCAL_STATIC_LIBRARIES := libcutils libc
 LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)
