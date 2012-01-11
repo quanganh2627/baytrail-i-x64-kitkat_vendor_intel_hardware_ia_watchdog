@@ -16,6 +16,7 @@
  */
 
 /* Filename:	watchdogd_devel.c */
+#if 0
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -225,3 +226,5 @@ int watchdogd_health_response()
 	}
 	return 0;
 };
+
+#endif

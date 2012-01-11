@@ -1,5 +1,5 @@
 CC =  ../../../../prebuilt/linux-x86/toolchain/i686-linux-glibc2.7-4.4.3/bin/i686-linux-gcc
-CFLAGS = -m32
+CFLAGS = -m32 -I ../../linux-2.6/include
 LDFLAGS = -m32
 
 all:	watchdogd

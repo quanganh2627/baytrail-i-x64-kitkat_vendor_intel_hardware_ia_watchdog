@@ -20,6 +20,8 @@ include $(CLEAR_VARS)
 LOCAL_FORCE_STATIC_EXECUTABLE := true
 
 LOCAL_C_INCLUDES += hardware/intel/include
+LOCAL_C_INCLUDES += bionic/libc/kernel/common/
+LOCAL_C_INCLUDES += hardware/intel/linux-2.6/include
 LOCAL_CFLAGS += -g -Wall
 LOCAL_SRC_FILES:= watchdogd.c
 LOCAL_MODULE := watchdogd
