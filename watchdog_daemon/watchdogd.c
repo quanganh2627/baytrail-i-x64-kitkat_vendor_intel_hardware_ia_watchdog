@@ -30,7 +30,9 @@
 #include <errno.h>
 #include "watchdogd.h"
 #include <linux/watchdog.h>
+#include <sys/mman.h>
 
+#define __NR_mlockall       152
 /* High level configuration */
 #define EXTTIMER_DEFAULT_TIMEOUT 50		/* timer frequency to write to the WD device */
 #define WATCHDOG_EXTRA_MARGIN 10			/* extra margin for scheduling next timer MSI */
@@ -61,7 +63,11 @@ int main(int argc, char **argv)
 	int n, ret, timeout = EXTTIMER_DEFAULT_TIMEOUT, wd_timeout;
 	int pre_timeout = WATCHDOG_TIME_BETWEEN_WARN_AND_RESET;
 	int options;
-
+	if ( (syscall(__NR_mlockall,MCL_CURRENT | MCL_FUTURE)) != 0) // syscall number 152 is mlockall
+	{
+		LOGE("Unable to lock all page\n");
+		goto error_nop;
+	}
 	/* Start logging here */
 	LOG_INIT(LOG_TAG);
 	LOGW("Watchdog daemon starting\n");
@@ -165,7 +171,6 @@ int main(int argc, char **argv)
 				LOGE("Unable to refresh Watchdog Timer\n");
 		}
 	}
-
 	LOGW("Watchdog daemon exiting\n");
 	return 0;
 
