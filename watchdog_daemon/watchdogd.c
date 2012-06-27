@@ -101,7 +101,7 @@ int main(int argc, char **argv)
 
 	wd_fd = open(WATCHDOG_DEVICE, O_RDWR | O_NONBLOCK | O_SYNC | O_EXCL);
 	if (wd_fd == -1) {
-		LOGE("unable to open the wd device\n");
+		LOGE("unable to open the wd device (ERRNO=%d)\n",errno);
 		goto error_nop;
 	}
 
