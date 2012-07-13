@@ -34,8 +34,9 @@
 
 #define __NR_mlockall       152
 /* High level configuration */
-#define EXTTIMER_DEFAULT_TIMEOUT 50		/* timer frequency to write to the WD device */
-#define WATCHDOG_EXTRA_MARGIN 10			/* extra margin for scheduling next timer MSI */
+#define EXTTIMER_DEFAULT_TIMEOUT 40		/* timer frequency to write to the WD device */
+#define WATCHDOG_EXTRA_MARGIN 20		/* extra margin for scheduling next timer MSI, */
+						/* must be >20s to comply with NMI Watchdog */
 #define WATCHDOG_TIME_BETWEEN_WARN_AND_RESET 15	/* time to dump kernel status before resetting */
 #define WATCHDOG_DEVICE "/dev/watchdog"
 
