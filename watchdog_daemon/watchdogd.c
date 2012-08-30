@@ -78,13 +78,6 @@ int main(int argc, char **argv)
 		switch (opt) {
 			case 't':
 				timeout = atoi(optarg);
-
-				/* Check value considering a 1 sec marging */
-				if (timeout < WATCHDOG_TIME_BETWEEN_WARN_AND_RESET+1) {
-					LOGE("Cannot have timer value of less than %d+1\n",
-						WATCHDOG_TIME_BETWEEN_WARN_AND_RESET);
-					exit (-1);
-				}
 				break;
 			default:
 				LOGE("invalid parameters\n");
