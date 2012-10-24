@@ -64,11 +64,7 @@ int main(int argc, char **argv)
 	int n, ret, timeout = EXTTIMER_DEFAULT_TIMEOUT, wd_timeout;
 	int pre_timeout = WATCHDOG_TIME_BETWEEN_WARN_AND_RESET;
 	int options;
-	if ( (syscall(__NR_mlockall,MCL_CURRENT | MCL_FUTURE)) != 0) // syscall number 152 is mlockall
-	{
-		LOGE("Unable to lock all page\n");
-		goto error_nop;
-	}
+
 	/* Start logging here */
 	LOG_INIT(LOG_TAG);
 	LOGW("Watchdog daemon starting\n");
