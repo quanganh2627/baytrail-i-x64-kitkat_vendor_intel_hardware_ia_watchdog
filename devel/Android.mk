@@ -21,7 +21,7 @@ WDOGD_PATH := $(LOCAL_PATH)/../watchdog_daemon
 
 include $(CLEAR_VARS)
 
-LOCAL_C_INCLUDES += hardware/intel/include
+LOCAL_C_INCLUDES += vendor/intel/hardware/include
 LOCAL_C_INCLUDES += $(WDOGD_PATH)
 LOCAL_CFLAGS += -g -Wall
 LOCAL_LDFLAGS += -ldl

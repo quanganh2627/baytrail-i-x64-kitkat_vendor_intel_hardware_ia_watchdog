@@ -19,7 +19,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_FORCE_STATIC_EXECUTABLE := true
 
-LOCAL_C_INCLUDES += hardware/intel/include
+LOCAL_C_INCLUDES += vendor/intel/hardware/include
 LOCAL_CFLAGS += -g -Wall
 LOCAL_SRC_FILES:= watchdogd.c
 LOCAL_MODULE := ia_watchdogd
