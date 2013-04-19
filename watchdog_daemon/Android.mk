@@ -21,7 +21,11 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 
 LOCAL_C_INCLUDES += vendor/intel/hardware/include
 LOCAL_CFLAGS += -g -Wall
+ifeq ($(TARGET_BOARD_PLATFORM),merrifield)
+LOCAL_SRC_FILES:= watchdogd_evo.c
+else
 LOCAL_SRC_FILES:= watchdogd.c
+endif
 LOCAL_MODULE := ia_watchdogd
 LOCAL_STATIC_LIBRARIES := libcutils libc
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT_SBIN)
