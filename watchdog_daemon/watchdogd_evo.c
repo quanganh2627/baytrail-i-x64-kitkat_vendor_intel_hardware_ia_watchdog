@@ -110,8 +110,8 @@ int main(int argc, char **argv)
 	for (;;) {
 		sleep(DLTIMER_DEFAULT_TIMEOUT-WATCHDOG_KICKING_MARGIN);
 		/* kicking the watchdog device */
-		LOGI("Refreshing Wtchdog Timers\n");
-		kick_watchdog(wd_fd);
+		LOGI("Refreshing Watchdog Timers\n");
+		ret = kick_watchdog(wd_fd);
 		if (ret <= 0)
 			LOGE("Unable to refresh Watchdog Timers\n");
 	}
