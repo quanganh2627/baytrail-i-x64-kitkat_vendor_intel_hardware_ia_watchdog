@@ -21,7 +21,7 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 
 LOCAL_C_INCLUDES += vendor/intel/hardware/include
 LOCAL_CFLAGS += -g -Wall
-ifeq ($(TARGET_BOARD_PLATFORM),merrifield)
+ifneq ($(filter $(TARGET_BOARD_PLATFORM),merrifield moorefield),)
 LOCAL_SRC_FILES:= watchdogd_evo.c
 else
 LOCAL_SRC_FILES:= watchdogd.c
